@@ -1,11 +1,11 @@
-<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="svg223009" viewBox="0 0 1024 768" height="768px" width="1024px" version="1.1">
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="svg223009" viewBox="100 100 824 568" height="384px" width="512px" version="1.1">
   <metadata id="metadata223015">
-    <rdf:rdf>
-      <cc:work rdf:about="">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
         <dc:format>image/svg+xml</dc:format>
         <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type>
-      </cc:work>
-    </rdf:rdf>
+      </cc:Work>
+    </rdf:RDF>
   </metadata>
   <defs id="defs223013"></defs>
   <linearGradient spreadMethod="pad" y2="30%" x2="-10%" y1="120%" x1="30%" id="3d_gradient2-logo-a37ebff3-7b41-4c4e-a1d2-8947cbc9da78">
