@@ -1,13 +1,10 @@
 import React from 'react';
+import SignInPage from './pages/SignInPage';
 // import './App.css';
 
 function App() {
   return (
-    <div className="App font-bold">
-      <header className="App-header">
-        <img src={"./assets/logo.svg"} className="App-logo" alt="logo" />
-      </header>
-    </div>
+    <SignInPage />
   );
 }
 
