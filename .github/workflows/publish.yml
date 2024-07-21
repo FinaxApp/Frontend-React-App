@@ -19,7 +19,7 @@ jobs:
           node-version: '20'
       
       - name: Configure git pull behavior
-        run: git config --global  pull.ff true
+        run: git config pull.ff only
 
       - name: Pull latest changes
         run: git pull origin master
