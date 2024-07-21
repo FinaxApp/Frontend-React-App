@@ -12,11 +12,18 @@ jobs:
     steps:
       - name: git-checkout
         uses: actions/checkout@v3
-        
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
+      
+      - name: Configure git pull behavior
+        run: |
+          git config pull.rebase false
+
+       - name: Pull latest changes
+        run: git pull origin master
 
       - name: Install all dependencies
         run: npm install
