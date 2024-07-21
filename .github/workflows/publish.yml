@@ -22,7 +22,7 @@ jobs:
         run: git config --global  pull.ff true
 
       - name: Pull latest changes
-       run: git pull origin master
+        run: git pull origin master
 
       - name: Install all dependencies
         run: npm install
