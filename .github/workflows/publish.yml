@@ -18,11 +18,11 @@ jobs:
         with:
           node-version: '20'
       
-      - name: Configure git pull behavior
-        run: git config pull.rebase false
+      # - name: Configure git pull behavior
+      #   run: git config pull.rebase false
 
-       - name: Pull latest changes
-        run: git pull origin master
+      #  - name: Pull latest changes
+      #   run: git pull origin master
 
       - name: Install all dependencies
         run: npm install
