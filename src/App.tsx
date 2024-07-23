@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import SignInPage from './pages/SignInPage';
 import axios from 'axios';
+const REACT_APP_SIGNIN_WITH_GOOGLE_URL = "http://finax.up.railway.app/auth/google";
+const REACT_APP_BASE_API_URL = "http://finax.up.railway.app"
 
 interface User {
   dp: string;
@@ -42,7 +44,7 @@ function App() {
     const token = getCookie("token");
     if (token) {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BASE_API_URL}/api/user`, {
+        const response = await axios.get(`${REACT_APP_BASE_API_URL}/api/user`, {
           headers: {
             Authorization: token,
           },
@@ -83,7 +85,7 @@ function App() {
   return (
     <div>
       {!token ? (
-        <SignInPage />
+        <SignInPage/>
       ) : (
         <div>
           <p>HI  {user?.name}</p>
