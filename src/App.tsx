@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from 'react';
 import SignInPage from './pages/SignInPage';
 import axios from 'axios';
 
-const REACT_APP_SIGNIN_WITH_GOOGLE_URL = "http://finax.up.railway.app/auth/google";
 const REACT_APP_BASE_API_URL = "http://finax.up.railway.app";
 
 interface User {
