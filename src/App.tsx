@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import SignInPage from './pages/SignInPage';
 import axios from 'axios';
+
 const REACT_APP_SIGNIN_WITH_GOOGLE_URL = "http://finax.up.railway.app/auth/google";
-const REACT_APP_BASE_API_URL = "http://finax.up.railway.app"
+const REACT_APP_BASE_API_URL = "http://finax.up.railway.app";
 
 interface User {
   dp: string;
-  name:String;
-  email:String;
+  name: string;
+  email: string;
 }
 
 function App() {
@@ -40,7 +41,7 @@ function App() {
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
 
-  const fetchUserData = async () => {
+  const fetchUserData = useCallback(async () => {
     const token = getCookie("token");
     if (token) {
       try {
@@ -59,7 +60,7 @@ function App() {
         }
       }
     }
-  };
+  }, []);
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -69,18 +70,19 @@ function App() {
       setToken(token);
       fetchUserData(); // Fetch user data when token is set
     }
-  }, []);
+  }, [fetchUserData]);
 
   useEffect(() => {
     if (token) {
       fetchUserData(); // Fetch user data when token changes
     }
-  }, [token]);
+  }, [token, fetchUserData]);
 
-  const logout = ()=>{
-    deleteCookie("token")
-    setToken("")
-  }
+  const logout = () => {
+    deleteCookie("token");
+    setToken(null);
+    setUser(null);
+  };
 
   return (
     <div>
@@ -88,7 +90,7 @@ function App() {
         <SignInPage/>
       ) : (
         <div>
-          <p>HI  {user?.name}</p>
+          <p>HI {user?.name}</p>
           <img
             src={user ? user.dp : "https://auth-db1131.hstgr.io/themes/pmahomme/img/logo_right.png"}
             alt="User Profile"
