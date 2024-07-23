@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import SignInPage from './pages/SignInPage';
 import axios from 'axios';
+import { Route, Routes } from 'react-router-dom';
+import DashBoardPage from './pages/DashBoardPage';
+import SignUpPage from './pages/SignUpPage';
 
 const REACT_APP_BASE_API_URL = "http://finax.up.railway.app";
 
@@ -31,10 +34,6 @@ function App() {
       expires = "; expires=" + date.toUTCString();
     }
     document.cookie = name + "=" + (value || "") + expires + "; path=/";
-  };
-
-  const deleteCookie = (name: string) => {
-    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
   };
 
   const [token, setToken] = useState<string | null>(null);
@@ -77,31 +76,11 @@ function App() {
     }
   }, [token, fetchUserData]);
 
-  const logout = () => {
-    deleteCookie("token");
-    setToken(null);
-    setUser(null);
-  };
-
   return (
-    <div>
-      {!token ? (
-        <SignInPage/>
-      ) : (
-        <div>
-          <p>HI {user?.name}</p>
-          <img
-            src={user ? user.dp : "https://auth-db1131.hstgr.io/themes/pmahomme/img/logo_right.png"}
-            alt="User Profile"
-            onError={(e) => {
-              // Handle image load error
-              (e.target as HTMLImageElement).src = "https://auth-db1131.hstgr.io/themes/pmahomme/img/logo_right.png";
-            }}
-          />
-          <button onClick={logout} className='bg-red-600 p-3 m-4 rounded-md text-white' type="button">Logout</button>
-        </div>
-      )}
-    </div>
+    <Routes>
+      <Route path="/" element={!token ? <SignInPage /> : <DashBoardPage user={user} setUser={setUser} setToken={setToken} />} />
+      <Route path="/signup" element={!token ? <SignUpPage /> : <DashBoardPage user={user} setUser={setUser} setToken={setToken} />} />
+    </Routes>
   );
 }
 
