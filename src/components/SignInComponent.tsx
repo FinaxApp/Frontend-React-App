@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function SignIn() {
   const REACT_APP_SIGNIN_WITH_GOOGLE_URL = "http://finax.up.railway.app/auth/google";
+  // const REACT_APP_SIGNIN_WITH_GOOGLE_URL = "http://localhost:8080/auth/google";
 
   return (
     <div className="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8">

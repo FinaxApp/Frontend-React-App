@@ -20,6 +20,7 @@ interface DashBoardProps {
 
 export default function DashBoard({ user, setUser, setToken }: DashBoardProps) {
   const REACT_APP_BASE_API_URL = "http://finax.up.railway.app";
+  // const REACT_APP_BASE_API_URL = "http://localhost:8080";
 
   const navigate = useNavigate();
 
@@ -50,26 +51,31 @@ export default function DashBoard({ user, setUser, setToken }: DashBoardProps) {
     const token = getCookie("token");
     if (token) {
       try {
-        const response = await axios.post(`${REACT_APP_BASE_API_URL}/api/company`, {
-          headers: {
-            Authorization: token,
+        console.log(token)
+        const response = await axios.post(
+          `${REACT_APP_BASE_API_URL}/api/company`,
+          {
+            name: "vijay sales",
+            address: "surat guj",
+            GSTNumber: "37793196389q1",
+            PANNumber: "3q8 ryn3q89wry3qnd98q3y",
+            TDSNumber: "dmo3w89fjnweouifh",
+            phone: "939031975091",
+            email: "wegvoilwm",
           },
-          body: {
-            "name": "vijay sales",
-            "address": "surat guj",
-            "GSTNumber": "37793196389q1",
-            "PANNumber": "3q8 ryn3q89wry3qnd98q3y",
-            "TDSNumber": "dmo3w89fjnweouifh",
-            "phone": "939031975091",
-            "email": "wegvoilwm"
+          {
+            headers: {
+              Authorization: token,
+            },
           }
-        });
+        );
+        
         console.log("company:", response.data);
       } catch (error: any) {
         console.error("Error fetching user data:", error);
         if (error.response?.status === 401) {
-          localStorage.removeItem("token");
-          setToken(null);
+          // localStorage.removeItem("token");
+          // setToken(null);
         }
       }
     }
