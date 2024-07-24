@@ -61,6 +61,8 @@ function App() {
     }
   }, []);
 
+  
+
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
     const token = queryParams.get('token');
@@ -79,7 +81,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={!token ? <SignInPage /> : <DashBoardPage user={user} setUser={setUser} setToken={setToken} />} />
+      <Route path="/" element={!token ? <SignInPage /> : <DashBoardPage user={user} setUser={setUser} setToken={setToken}/>} />
       <Route path="/signup" element={!token ? <SignUpPage /> : <DashBoardPage user={user} setUser={setUser} setToken={setToken} />} />
     </Routes>
   );
