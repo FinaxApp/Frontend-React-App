@@ -6,6 +6,7 @@ import DashBoardPage from './pages/DashBoardPage';
 import SignUpPage from './pages/SignUpPage';
 
 const REACT_APP_BASE_API_URL = "http://finax.up.railway.app";
+// const REACT_APP_BASE_API_URL = "http://localhost:8080";
 
 interface User {
   dp: string;
