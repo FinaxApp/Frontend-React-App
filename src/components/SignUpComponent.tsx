@@ -41,7 +41,7 @@ export default function SignUpComponent() {
   
           <p className="mt-10 text-center text-sm text-gray-500">
             Already a User?
-            <Link to="/" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign In</Link>
+            <Link to="/signin" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign In</Link>
           </p>
         </div>
       </div>

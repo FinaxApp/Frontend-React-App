@@ -22,13 +22,13 @@ export default function DashBoard({ user, setUser, setToken }: DashBoardProps) {
 
   const [isFormVisible, setFormVisible] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
-    address: '',
-    gstNumber: '',
-    panNumber: '',
-    tdsNumber: '',
-    phone: '',
-    email: ''
+    name: "",
+    address: "",
+    GSTNumber: "",
+    PANNumber: "",
+    TDSNumber: "",
+    phone: "",
+    email: "",
   });
 
   const navigate = useNavigate();
@@ -150,7 +150,7 @@ export default function DashBoard({ user, setUser, setToken }: DashBoardProps) {
                       <input
                         type="text"
                         id="gstNumber"
-                        value={formData.gstNumber}
+                        value={formData.GSTNumber}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                       />
@@ -160,7 +160,7 @@ export default function DashBoard({ user, setUser, setToken }: DashBoardProps) {
                       <input
                         type="text"
                         id="panNumber"
-                        value={formData.panNumber}
+                        value={formData.PANNumber}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                       />
@@ -172,7 +172,7 @@ export default function DashBoard({ user, setUser, setToken }: DashBoardProps) {
                       <input
                         type="text"
                         id="tdsNumber"
-                        value={formData.tdsNumber}
+                        value={formData.TDSNumber}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                       />

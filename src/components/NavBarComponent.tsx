@@ -17,6 +17,7 @@ const Navbar = ({ user, logout }: NavbarProps) => {
     <nav className="bg-white p-4 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="text-gray-800 text-lg font-bold"><img className="mx-auto w-24" src="assets/images/finax2.png" alt="Your Company" /></Link>
+        <Link to="/privacy-policy" className="text-gray-800 text-lg font-bold">Privacy Policy</Link>
         <div className="flex items-center">
           {user ? (
             <div className="text-gray-800 mr-4 flex items-center">
@@ -26,7 +27,7 @@ const Navbar = ({ user, logout }: NavbarProps) => {
           ) : (
             <span className="text-gray-800 mr-4">Guest</span>
           )}
-          <button onClick={logout} className="hover:bg-black p-2 rounded-md hover:text-white hover:bg-red-700 border-black border"><span className="mr-2 ml-1">Logout</span><i className="fa fa-sign-out ml-2"></i>
+          <button onClick={logout} className="hover:bg-black p-2 rounded-md hover:text-white border-black border"><span className="mr-2 ml-1">Logout</span><i className="fa fa-sign-out ml-2"></i>
           </button>
         </div>
       </div>
