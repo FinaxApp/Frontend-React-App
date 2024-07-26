@@ -1,7 +1,5 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Navbar from './NavBarComponent';
 
 interface User {
   dp: string;
@@ -30,19 +28,8 @@ export default function DashBoard({ user, setUser, setToken }: DashBoardProps) {
     phone: "",
     email: "",
   });
+  
 
-  const navigate = useNavigate();
-
-  const deleteCookie = (name: string) => {
-    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
-  };
-
-  const logout = () => {
-    deleteCookie("token");
-    setToken(null);
-    setUser(null);
-    navigate("/");
-  };
 
   const getCookie = (name: string): string | null => {
     const value = `; ${document.cookie}`;
@@ -101,9 +88,6 @@ export default function DashBoard({ user, setUser, setToken }: DashBoardProps) {
 
   return (
     <div className="min-h-screen flex flex-col">
-
-      <div>{user?.name}</div>
-      <Navbar user={user} logout={logout} />
       <div className="flex-grow p-8 bg-gray-100">
         <button 
           type='button' 

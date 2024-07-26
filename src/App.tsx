@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import SignInPage from './pages/SignInPage';
 import axios from 'axios';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import DashBoardPage from './pages/DashBoardPage';
 import SignUpPage from './pages/SignUpPage';
 import PrivacyPage from './pages/PrivacyPage';
+import Navbar from './components/NavBarComponent';
 
 const REACT_APP_BASE_API_URL = "http://finax.up.railway.app";
 // const REACT_APP_BASE_API_URL = "http://localhost:8080";
@@ -59,10 +60,8 @@ function App() {
       } catch (error: any) {
         console.error("Error fetching user data:", error);
         if (error.response?.status === 401) {
-          console.log("hello");
-
-          // localStorage.removeItem("token");
-          // setToken(null);  // Optionally clear the token state
+          localStorage.removeItem("token");
+          setToken(null);  
         }
       }
     }
@@ -77,23 +76,35 @@ function App() {
     const tokenFromCookie = getCookie('token');
     if (token) {
       setCookie("token", token, 1);
-      console.log("hello");
-      
       setToken(token);
-      fetchUserData(); // Fetch user data when token is set
+      console.log("hello settoken");
+      fetchUserData();
     }
     else if (tokenFromCookie) {
       setToken(tokenFromCookie);
-      fetchUserData(); // Fetch user data when token is set
+      console.log("hello settoken from cookie");
+      fetchUserData();
     }
 
   }, [fetchUserData]);
 
   useEffect(() => {
     if (token) {
-      fetchUserData(); // Fetch user data when token changes
+      fetchUserData();
     }
   }, [token, fetchUserData]);
+
+  const deleteCookie = (name: string) => {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+  };
+  const navigate = useNavigate();
+
+  const logout = () => {
+    deleteCookie("token");
+    setToken(null);
+    setUser(null);
+    navigate("/");
+  };
 
 
   console.log(token);
@@ -101,12 +112,16 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={!token ? <Navigate to="/signup" /> : <DashBoardPage user={user} setUser={setUser} setToken={setToken} />} />
+      <Route path="/" element={!token ? <Navigate to="/signup" /> : [<Navbar user={user} logout={logout} />,<DashBoardPage user={user} setUser={setUser} setToken={setToken} />]} />
       <Route path="/signup" element={!token ? <SignUpPage /> : <Navigate to='/' />} />
       <Route path="/signin" element={!token ? <SignInPage /> : <Navigate to='/' />} />
-      <Route path="/privacy-policy" element={!token ? <Navigate to='/signup' /> : <PrivacyPage />} />
+      <Route path="/privacy-policy" element={!token ? <Navigate to='/signup' />: [<Navbar user={user} logout={logout} />,<PrivacyPage />]} />
     </Routes>
   );
 }
 
 export default App;
+
+
+
+// https://jsrsofcare.com/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwNzE1NTQxNDMwMTEwMjc5MTU0NCIsImlhdCI6MTcyMTk5NDkyNCwiZXhwIjoxNzIyMDgxMzI0fQ.NatHfE9gaP54cgRyJCbIO-Ci0ypYJ8a8TUor3lKMZ04

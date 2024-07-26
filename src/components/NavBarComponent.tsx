@@ -16,8 +16,10 @@ const Navbar = ({ user, logout }: NavbarProps) => {
   return (
     <nav className="bg-white p-4 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="text-gray-800 text-lg font-bold"><img className="mx-auto w-24" src="assets/images/finax2.png" alt="Your Company" /></Link>
-        <Link to="/privacy-policy" className="text-gray-800 text-lg font-bold">Privacy Policy</Link>
+        <div className='flex items-center space-x-10'>
+          <Link to="/" className="text-gray-800 text-lg font-bold"><img className="mx-auto w-24" src="assets/images/finax2.png" alt="Your Company" /></Link>
+          <Link to="/privacy-policy" className="text-gray-800 text-left">Privacy Policy</Link>
+        </div>
         <div className="flex items-center">
           {user ? (
             <div className="text-gray-800 mr-4 flex items-center">
