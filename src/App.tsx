@@ -6,8 +6,9 @@ import SignUpPage from './pages/SignUpPage';
 import PrivacyPage from './pages/PrivacyPage';
 import DashBoardPage from './pages/DashBoardPage';
 import Navbar from './components/NavBarComponent';
+import { env } from './utils/env.config';
 
-const REACT_APP_BASE_API_URL = "http://finax.up.railway.app";
+// const REACT_APP_BASE_API_URL = "http://finax.up.railway.app";
 
 interface User {
   dp: string;
@@ -51,7 +52,7 @@ function App() {
     const token = getCookie("token");
     if (token) {
       try {
-        const response = await axios.get(`${REACT_APP_BASE_API_URL}/api/user`, {
+        const response = await axios.get(`${env.BASE_API_URL}/api/user`, {
           headers: {
             Authorization: token,
           },
