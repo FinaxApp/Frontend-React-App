@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { env } from '../utils/env.config';
 
 interface User {
@@ -8,6 +8,16 @@ interface User {
   email: string;
 }
 
+interface Company {
+  id: string;
+  name: string;
+  address: string;
+  GSTNumber: string;
+  PANNumber: string;
+  TDSNumber: string;
+  phone: string;
+  email: string;
+}
 
 interface DashBoardProps {
   user: User | null;
@@ -16,21 +26,21 @@ interface DashBoardProps {
 }
 
 export default function DashBoard({ user, setUser, setToken }: DashBoardProps) {
-  // const REACT_APP_BASE_API_URL = "http://finax.up.railway.app";
-  // const REACT_APP_BASE_API_URL = "http://localhost:8080";
-
   const [isFormVisible, setFormVisible] = useState(false);
+  const [companies, setCompanies] = useState<Company[]>([]);
   const [formData, setFormData] = useState({
     name: "",
     address: "",
-    GSTNumber: "",
-    PANNumber: "",
-    TDSNumber: "",
+    gstNumber: "",
+    panNumber: "",
+    tdsNumber: "",
     phone: "",
     email: "",
   });
-  
 
+  useEffect(() => {
+    fetchCompanies();
+  }, []);
 
   const getCookie = (name: string): string | null => {
     const value = `; ${document.cookie}`;
@@ -44,27 +54,60 @@ export default function DashBoard({ user, setUser, setToken }: DashBoardProps) {
     return null;
   };
 
+  const fetchCompanies = async () => {
+    const token = getCookie("token");
+    if (token) {
+      try {
+        const response = await axios.get(`${env.BASE_API_URL}/company`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setCompanies(response.data.companies);
+      } catch (error: any) {
+        console.error("Error fetching companies:", error);
+        // Handle errors as needed, possibly displaying them to the user
+      }
+    }
+  };
+
   const createCompany = async () => {
     const token = getCookie("token");
     if (token) {
       try {
+        const requestBody = {
+          name: formData.name.trim(),
+          address: formData.address.trim(),
+          GSTNumber: formData.gstNumber.trim(),
+          PANNumber: formData.panNumber.trim(),
+          TDSNumber: formData.tdsNumber.trim(),
+          phone: formData.phone.trim(),
+          email: formData.email.trim(),
+        }
         const response = await axios.post(
           `${env.BASE_API_URL}/company`,
-          formData,
+          requestBody,
           {
             headers: {
-              Authorization: token,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
-
         console.log("company:", response.data);
+        setCompanies([...companies, response.data]); // Add the new company to the list
+        setFormData({
+          name: "",
+          address: "",
+          gstNumber: "",
+          panNumber: "",
+          tdsNumber: "",
+          phone: "",
+          email: "",
+        });
+        setFormVisible(false); // Close form after successful creation
       } catch (error: any) {
-        console.error("Error fetching user data:", error);
-        if (error.response?.status === 401) {
-          // localStorage.removeItem("token");
-          // setToken(null);
-        }
+        console.error("Error creating company:", error);
+        // Handle errors as needed, possibly displaying them to the user
       }
     }
   };
@@ -80,7 +123,6 @@ export default function DashBoard({ user, setUser, setToken }: DashBoardProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     createCompany();
-    setFormVisible(false);
   };
 
   const toggleFormVisibility = () => {
@@ -90,9 +132,9 @@ export default function DashBoard({ user, setUser, setToken }: DashBoardProps) {
   return (
     <div className="min-h-screen flex flex-col">
       <div className="flex-grow p-8 bg-gray-100">
-        <button 
-          type='button' 
-          onClick={toggleFormVisibility} 
+        <button
+          type='button'
+          onClick={toggleFormVisibility}
           className='bg-blue-600 p-3 m-4 rounded-md text-white'
         >
           Create Company
@@ -135,7 +177,7 @@ export default function DashBoard({ user, setUser, setToken }: DashBoardProps) {
                       <input
                         type="text"
                         id="gstNumber"
-                        value={formData.GSTNumber}
+                        value={formData.gstNumber}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                       />
@@ -145,7 +187,7 @@ export default function DashBoard({ user, setUser, setToken }: DashBoardProps) {
                       <input
                         type="text"
                         id="panNumber"
-                        value={formData.PANNumber}
+                        value={formData.panNumber}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                       />
@@ -157,7 +199,7 @@ export default function DashBoard({ user, setUser, setToken }: DashBoardProps) {
                       <input
                         type="text"
                         id="tdsNumber"
-                        value={formData.TDSNumber}
+                        value={formData.tdsNumber}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                       />
@@ -194,6 +236,22 @@ export default function DashBoard({ user, setUser, setToken }: DashBoardProps) {
             </div>
           </div>
         )}
+        <div className="mt-8">
+          <h2 className="text-2xl font-semibold">Companies</h2>
+          <div className="grid grid-cols-1 gap-4 mt-4">
+            {companies.map(company => (
+              <div key={company.id} className="bg-white p-4 rounded-lg shadow-md">
+                <h3 className="text-xl font-bold">{company.name}</h3>
+                <p><strong>Address:</strong> {company.address}</p>
+                <p><strong>GST Number:</strong> {company.GSTNumber}</p>
+                <p><strong>PAN Number:</strong> {company.PANNumber}</p>
+                <p><strong>TDS Number:</strong> {company.TDSNumber}</p>
+                <p><strong>Phone:</strong> {company.phone}</p>
+                <p><strong>Email:</strong> {company.email}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
