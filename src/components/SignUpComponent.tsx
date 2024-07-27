@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import { env } from '../utils/env.config';
 
 export default function SignUpComponent() {
     const REACT_APP_SIGNIN_WITH_GOOGLE_URL = "http://finax.up.railway.app/auth/google";
@@ -33,7 +34,7 @@ export default function SignUpComponent() {
               <button type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
             </div>
             <div>
-              <a href={REACT_APP_SIGNIN_WITH_GOOGLE_URL}>
+              <a href={env.SIGNIN_WITH_GOOGLE_URL}>
                 <button type='button' className="flex w-full justify-center rounded-md text-black border-2 px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 items-center"><img src="https://www.google.com/favicon.ico" alt="Google" className='w-7 mx-2' /> Continue with Google</button>
               </a>
             </div>

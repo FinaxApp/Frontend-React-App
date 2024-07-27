@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { env } from '../utils/env.config';
 
 interface User {
   dp: string;
@@ -15,7 +16,7 @@ interface DashBoardProps {
 }
 
 export default function DashBoard({ user, setUser, setToken }: DashBoardProps) {
-  const REACT_APP_BASE_API_URL = "http://finax.up.railway.app";
+  // const REACT_APP_BASE_API_URL = "http://finax.up.railway.app";
   // const REACT_APP_BASE_API_URL = "http://localhost:8080";
 
   const [isFormVisible, setFormVisible] = useState(false);
@@ -48,7 +49,7 @@ export default function DashBoard({ user, setUser, setToken }: DashBoardProps) {
     if (token) {
       try {
         const response = await axios.post(
-          `${REACT_APP_BASE_API_URL}/api/company`,
+          `${env.BASE_API_URL}/api/company`,
           formData,
           {
             headers: {
