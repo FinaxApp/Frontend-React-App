@@ -49,7 +49,7 @@ export default function DashBoard({ user, setUser, setToken }: DashBoardProps) {
     if (token) {
       try {
         const response = await axios.post(
-          `${env.BASE_API_URL}/api/company`,
+          `${env.BASE_API_URL}/company`,
           formData,
           {
             headers: {

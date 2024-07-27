@@ -52,7 +52,7 @@ function App() {
     const token = getCookie("token");
     if (token) {
       try {
-        const response = await axios.get(`${env.BASE_API_URL}/api/user`, {
+        const response = await axios.get(`${env.BASE_API_URL}/user`, {
           headers: {
             Authorization: token,
           },
